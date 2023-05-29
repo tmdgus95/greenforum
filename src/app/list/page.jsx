@@ -6,7 +6,7 @@ export default async function List() {
   let posts = await db.collection('post').find().toArray();
   console.log(posts);
   return (
-    <div className='bg-slate-50 p-10'>
+    <div className='bg-slate-50 p-3'>
       {posts.map((post, i) => (
         <PostCard key={i} post={post}></PostCard>
       ))}
