@@ -1,6 +1,8 @@
 import PostCard from '@/components/PostCard';
 import { connectDB } from '@/util/database';
 
+export const dynamic = 'force-dynamic';
+
 export default async function List() {
   let db = (await connectDB).db('forum');
   let posts = await db.collection('post').find().toArray();
