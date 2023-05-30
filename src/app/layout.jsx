@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Navbar from '@/components/Navbar';
 import './globals.css';
 import { Inter } from 'next/font/google';
 
@@ -13,14 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <div className='bg-white p-5'>
-          <Link className='mr-3 font-extrabold' href={'/'}>
-            Greenforum
-          </Link>
-          <Link className='mr-3' href={'/list'}>
-            List
-          </Link>
-        </div>
+        <Navbar />
         {children}
       </body>
     </html>
