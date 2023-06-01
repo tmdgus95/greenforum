@@ -1,8 +1,13 @@
-import Link from 'next/link';
+'use client';
 
-export default function Navbar() {
+import Link from 'next/link';
+import { signIn, signOut } from 'next-auth/react';
+import UserProfile from './UserProfile';
+
+export default function Navbar({ session }) {
+  console.log(session);
   return (
-    <div className='bg-white p-5'>
+    <div className='flex items-center bg-white p-5'>
       <Link className='mr-3 font-extrabold' href={'/'}>
         Greenforum
       </Link>
@@ -12,6 +17,14 @@ export default function Navbar() {
       <Link className='mr-3' href={'/write'}>
         Write
       </Link>
+      {session == null ? (
+        <button onClick={signIn}>Login</button>
+      ) : (
+        <div className='flex gap-4'>
+          <UserProfile session={session} />
+          <button onClick={signOut}>Logout</button>
+        </div>
+      )}
     </div>
   );
 }
