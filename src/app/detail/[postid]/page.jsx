@@ -1,3 +1,4 @@
+import Comments from '@/components/Comments';
 import { connectDB } from '@/util/database';
 import { ObjectId } from 'mongodb';
 
@@ -6,10 +7,11 @@ export default async function Detail({ params: { postid } }) {
   let post = await db.collection('post').findOne({ _id: new ObjectId(postid) });
   const { title, content } = post;
   return (
-    <div>
+    <section>
       <h4>상세 페이지</h4>
       <h4>{title}</h4>
       <p>{content}</p>
-    </div>
+      <Comments _id={postid} />
+    </section>
   );
 }
