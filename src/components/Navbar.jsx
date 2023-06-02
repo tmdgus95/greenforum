@@ -5,7 +5,6 @@ import { signIn, signOut } from 'next-auth/react';
 import UserProfile from './UserProfile';
 
 export default function Navbar({ session }) {
-  console.log(session);
   return (
     <div className='flex items-center bg-white p-5'>
       <Link className='mr-3 font-extrabold' href={'/'}>
@@ -18,7 +17,12 @@ export default function Navbar({ session }) {
         Write
       </Link>
       {session == null ? (
-        <button onClick={signIn}>Login</button>
+        <>
+          <Link className='mr-3' href={'/register'}>
+            Register
+          </Link>
+          <button onClick={signIn}>Login</button>
+        </>
       ) : (
         <div className='flex gap-4'>
           <UserProfile session={session} />
