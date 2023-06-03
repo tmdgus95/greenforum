@@ -1,4 +1,20 @@
+'use client';
+
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+
 export default function Write() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    alert('로그인이 필요합니다.');
+    router.push('/api/auth/signin');
+  }
+
   return (
     <div className='p-5 flex flex-col'>
       <h4 className='text-2xl mb-6'>글작성</h4>
