@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import Like from './Like';
 
 export default function PostCard({
   post: { title, content, _id, author, name },
@@ -37,6 +38,7 @@ export default function PostCard({
         <h4 className='text-xl font-extrabold m-0'>{title}</h4>
       </Link>
       <p>작성자 : {name}</p>
+      <Like _id={_id} />
       {session?.user?.email == author && <Link href={`/edit/${_id}`}>🪄</Link>}
       <span onClick={handleDelete}>🗑️</span>
       <p className='text-gray-600 mx-0 my-5'>{content}</p>
