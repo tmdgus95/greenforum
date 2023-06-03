@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function PostCard({
-  post: { title, content, _id, author },
+  post: { title, content, _id, author, name },
   session,
 }) {
   const [hidden, setHidden] = useState(false);
@@ -36,6 +36,7 @@ export default function PostCard({
       <Link href={`/detail/${_id}`}>
         <h4 className='text-xl font-extrabold m-0'>{title}</h4>
       </Link>
+      <p>작성자 : {name}</p>
       {session?.user?.email == author && <Link href={`/edit/${_id}`}>🪄</Link>}
       <span onClick={handleDelete}>🗑️</span>
       <p className='text-gray-600 mx-0 my-5'>{content}</p>
