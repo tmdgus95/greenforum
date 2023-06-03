@@ -9,7 +9,22 @@ export default function PostCard({ post: { title, content, _id } }) {
     fetch('/api/post/delete', {
       method: 'POST',
       body: _id,
-    }).then(() => setHidden(true));
+    })
+      .then((response) => {
+        if (response.ok) {
+          setHidden(true);
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        if (data) {
+          alert(data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
   return (
     <div className={`bg-white rounded-xl p-5 mb-2 ${hidden && 'hidden'}`}>
