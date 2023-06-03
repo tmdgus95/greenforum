@@ -16,8 +16,11 @@ export default async function handler(req, res) {
       let post = await db
         .collection('post')
         .findOne({ _id: new ObjectId(req.body) });
+      let admin = await db
+        .collection('user_cred')
+        .findOne({ email: session.user.email });
 
-      if (post.author == session.user.email) {
+      if (post.author == session.user.email || admin) {
         let result = await db
           .collection('post')
           .deleteOne({ _id: new ObjectId(req.body) });
