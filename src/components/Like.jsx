@@ -16,11 +16,17 @@ export default function Like({ _id }) {
   };
 
   useEffect(() => {
-    fetch(`/api/like/list?id=${_id}`) //
-      .then((res) => res.json()) //
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/like/list?id=${_id}`);
+        const data = await response.json();
         setLikes(data.likepeople);
-      });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
