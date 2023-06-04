@@ -13,19 +13,25 @@ export default async function handler(req, res) {
       }
 
       let db = (await connectDB).db('forum');
-      let post = await db
-        .collection('post')
-        .findOne({ _id: new ObjectId(req.body) });
+      const postId = new ObjectId(req.body);
+
+      let post = await db.collection('post').findOne({ _id: postId });
       let admin = await db
         .collection('user_cred')
         .findOne({ email: session.user.email });
 
       if (post.author == session.user.email || admin) {
-        let result = await db
+        const postResult = await db
           .collection('post')
-          .deleteOne({ _id: new ObjectId(req.body) });
+          .deleteOne({ _id: postId });
+        const commentResult = await db
+          .collection('comment')
+          .deleteMany({ parent: postId });
+        const likeResult = await db
+          .collection('like')
+          .deleteMany({ postid: postId });
 
-        if (result.deletedCount === 1) {
+        if (postResult.deletedCount === 1) {
           res.status(200).json('삭제 완료');
         } else {
           res.status(500).json('삭제 실패');
