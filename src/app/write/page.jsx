@@ -2,9 +2,11 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Write() {
   const router = useRouter();
+  const [imgurl, setImgurl] = useState('');
   const { data: session, status } = useSession();
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -14,6 +16,24 @@ export default function Write() {
     alert('로그인이 필요합니다.');
     router.push('/api/auth/signin');
   }
+
+  const handleChange = async (e) => {
+    const { files } = e.target;
+    let file = files && files[0];
+    const data = new FormData();
+    data.append('file', file);
+    data.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_PRESET);
+
+    const response = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_URL, {
+      method: 'POST',
+      body: data,
+    });
+
+    const responseData = await response.json();
+    const url = responseData.url;
+    setImgurl(url);
+    return;
+  };
 
   return (
     <div className='p-5 flex flex-col'>
@@ -31,6 +51,9 @@ export default function Write() {
           name='content'
           placeholder='글내용'
         />
+
+        <input type='file' accept='image/*' onChange={handleChange} />
+        <img src={imgurl} alt='미리보기' width={300} />
         <button className='px-4 py-3 rounded-md bg-slate-300'>작성</button>
       </form>
     </div>
