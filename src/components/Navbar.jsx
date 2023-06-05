@@ -9,7 +9,7 @@ export default function Navbar({ session }) {
   return (
     <div className='flex items-center bg-white p-5'>
       <div className='flex items-center gap-2 duration-300 hover:scale-110'>
-        <Image src={'/images/logo.png'} width={40} height={40} />
+        <Image src={'/images/logo.png'} width={40} height={40} alt='로고' />
         <Link className='mr-3 font-extrabold' href={'/'}>
           Greenforum
         </Link>
