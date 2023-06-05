@@ -35,7 +35,8 @@ export default function Comments({ _id }) {
   useEffect(() => {
     fetch(`/api/comment/list?id=${_id}`) //
       .then((res) => res.json()) //
-      .then((data) => setCommnets(data));
+      .then((data) => setCommnets(data))
+      .then(() => setContent(''));
   }, []);
   return (
     <div>
@@ -46,6 +47,7 @@ export default function Comments({ _id }) {
             onChange={handleChange}
             type='text'
             placeholder='댓글 작성하기'
+            value={content}
           />
           <button className='ml-4 px-4 py-3 rounded-md bg-slate-300'>
             댓글 작성
