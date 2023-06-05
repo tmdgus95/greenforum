@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Like from './Like';
 
 export default function PostCard({
-  post: { title, content, _id, author, name },
+  post: { title, content, _id, author, name, imgurl },
   session,
 }) {
   const [hidden, setHidden] = useState(false);
@@ -35,7 +35,10 @@ export default function PostCard({
   return (
     <div className={`bg-white rounded-xl p-5 mb-2 ${hidden && 'hidden'}`}>
       <Link href={`/detail/${_id}`}>
-        <h4 className='text-xl font-extrabold m-0'>{title}</h4>
+        <h4 className='text-xl font-extrabold m-0'>
+          {title}{' '}
+          {imgurl ? <span>🖼️</span> : <span className='opacity-50'>🖼️</span>}
+        </h4>
       </Link>
       <p>작성자 : {name}</p>
       <Like _id={_id} />
