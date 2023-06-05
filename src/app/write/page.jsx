@@ -2,13 +2,14 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export default function Write() {
   const router = useRouter();
   const [imgurl, setImgurl] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const fileInputRef = useRef(null);
   const { data: session, status } = useSession();
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -53,6 +54,10 @@ export default function Write() {
     }
   };
 
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
   return (
     <div className='p-5 flex flex-col'>
       <h4 className='text-2xl mb-6'>글작성</h4>
@@ -70,9 +75,22 @@ export default function Write() {
           placeholder='글내용'
         />
 
-        <input type='file' accept='image/*' onChange={handleChange} />
-        <img src={imgurl} alt='미리보기' width={300} />
-        <button className='px-4 py-3 rounded-md bg-slate-300'>작성</button>
+        <input
+          type='file'
+          accept='image/*'
+          onChange={handleChange}
+          ref={fileInputRef}
+          className='hidden'
+        />
+        {imgurl && <img src={imgurl} alt='미리보기' width={300} />}
+        <button
+          type='button'
+          className='mt-4 px-4 py-3 rounded-md bg-slate-300'
+          onClick={handleButtonClick}
+        >
+          파일 선택
+        </button>
+        <button className='mt-4 px-4 py-3 rounded-md bg-slate-300'>작성</button>
       </form>
     </div>
   );
