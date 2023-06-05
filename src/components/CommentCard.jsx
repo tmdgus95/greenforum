@@ -1,4 +1,4 @@
-export default function CommentCard({ comment: { author, content, name } }) {
+export default function CommentCard({ comment: { content, name } }) {
   return (
     <div>
       <p>{content}</p>

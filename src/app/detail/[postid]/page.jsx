@@ -5,13 +5,15 @@ import { ObjectId } from 'mongodb';
 export default async function Detail({ params: { postid } }) {
   let db = (await connectDB).db('forum');
   let post = await db.collection('post').findOne({ _id: new ObjectId(postid) });
-  const { title, content, imgurl } = post;
+  const { title, content, name, imgurl } = post;
   return (
-    <section>
-      <h4>상세 페이지</h4>
-      <h4>{title}</h4>
+    <section className='ml-4'>
+      <div>
+        <h2 className='text-4xl'>{title}</h2>
+        <h3 className='my-4'>작성자: {name}</h3>
+      </div>
       <p>{content}</p>
-      <img src={imgurl} alt={title} width={500} height={500} />
+      {imgurl && <img src={imgurl} alt={title} width={500} height={500} />}
       <Comments _id={postid} />
     </section>
   );

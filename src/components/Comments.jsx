@@ -40,16 +40,23 @@ export default function Comments({ _id }) {
   return (
     <div>
       <div>
+        <p className='text-lg mt-6'>댓글 {comments.length}</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            onChange={handleChange}
+            type='text'
+            placeholder='댓글 작성하기'
+          />
+          <button className='ml-4 px-4 py-3 rounded-md bg-slate-300'>
+            댓글 작성
+          </button>
+        </form>
         {comments.length === 0
           ? '댓글이 없습니다.'
           : comments.map((comment, i) => (
               <CommentCard key={i} comment={comment} />
             ))}
       </div>
-      <form onSubmit={handleSubmit}>
-        <input onChange={handleChange} type='text' />
-        <button>댓글 작성</button>
-      </form>
     </div>
   );
 }
