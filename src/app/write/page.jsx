@@ -7,6 +7,8 @@ import { useState } from 'react';
 export default function Write() {
   const router = useRouter();
   const [imgurl, setImgurl] = useState('');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const { data: session, status } = useSession();
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -32,23 +34,39 @@ export default function Write() {
     const responseData = await response.json();
     const url = responseData.url;
     setImgurl(url);
-    return;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const body = JSON.stringify({
+      title,
+      content,
+      imgurl,
+    });
+    const res = await fetch('/api/post/new', {
+      method: 'POST',
+      body,
+    });
+    const data = await res.json();
+    if (data.redirect) {
+      router.push(data.redirect);
+    }
   };
 
   return (
     <div className='p-5 flex flex-col'>
       <h4 className='text-2xl mb-6'>글작성</h4>
-      <form className='flex flex-col' action='/api/post/new' method='POST'>
+      <form className='flex flex-col' onSubmit={handleSubmit} method='POST'>
         <input
           className='p-3 mb-3'
           type='text'
-          name='title'
+          onChange={(e) => setTitle(e.target.value)}
           placeholder='글제목'
         />
         <input
           className='p-3 mb-3'
           type='text'
-          name='content'
+          onChange={(e) => setContent(e.target.value)}
           placeholder='글내용'
         />
 

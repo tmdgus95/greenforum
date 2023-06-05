@@ -5,6 +5,7 @@ import { authOptions } from '../auth/[...nextauth]';
 export default async function handler(req, res) {
   let session = await getServerSession(req, res, authOptions);
   if (session) {
+    req.body = JSON.parse(req.body);
     req.body.author = session.user.email;
     req.body.name = session.user.name;
   }
@@ -18,6 +19,6 @@ export default async function handler(req, res) {
 
     let db = (await connectDB).db('forum');
     let post = await db.collection('post').insertOne(req.body);
-    res.redirect(302, '/list');
+    return res.json({ redirect: '/' });
   }
 }
