@@ -16,7 +16,7 @@ export default function Write() {
 
   if (!session) {
     alert('로그인이 필요합니다.');
-    router.push('/api/auth/signin');
+    router.push('/');
   }
 
   const handleChange = async (e) => {
