@@ -34,7 +34,7 @@ export default function Like({ _id }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <button onClick={handleClick}>
+      <button className='mr-4' onClick={handleClick}>
         {likes.length === 0 ? '🤍' : '❤️'} {likes.length}
       </button>
       {isHovered && likes.map((people, i) => <p key={i}>{people[1]}❤️</p>)}

@@ -35,16 +35,20 @@ export default function PostCard({
   return (
     <div className={`bg-white rounded-xl p-5 mb-2 ${hidden && 'hidden'}`}>
       <Link href={`/detail/${_id}`}>
-        <h4 className='text-xl font-extrabold m-0'>
+        <h4 className='text-3xl font-extrabold m-0'>
           {title}{' '}
-          {imgurl ? <span>🖼️</span> : <span className='opacity-50'>🖼️</span>}
+          <span className={`text-xl ${imgurl ? '' : 'opacity-50'}`}>🖼️</span>
         </h4>
       </Link>
-      <p>작성자 : {name}</p>
-      <Like _id={_id} />
-      {session?.user?.email == author && <Link href={`/edit/${_id}`}>🪄</Link>}
-      <span onClick={handleDelete}>🗑️</span>
-      <p className='text-gray-600 mx-0 my-5'>{content}</p>
+      <p className='text-gray-500'>작성자 : {name}</p>
+      <div className='flex items-center mt-4'>
+        <Like _id={_id} />
+        {session?.user?.email == author && (
+          <Link href={`/edit/${_id}`}>🪄</Link>
+        )}
+        <span onClick={handleDelete}>🗑️</span>
+      </div>
+      <p className='text-xl text-gray-600 mx-0 my-5'>{content}</p>
     </div>
   );
 }
