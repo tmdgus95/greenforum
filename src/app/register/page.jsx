@@ -41,29 +41,37 @@ export default function Register() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className='flex flex-col p-4 text-xl gap-4' onSubmit={handleSubmit}>
         <input
+          className='p-4 h-12'
           name='name'
           type='text'
-          placeholder='이름'
+          placeholder='이름을 입력하세요'
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
+          className='p-4 h-12'
           name='email'
           type='text'
-          placeholder='이메일'
+          placeholder='이메일을 입력하세요'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          className='p-4 h-12'
           name='password'
           type='password'
-          placeholder='비번'
+          placeholder='비밀번호를 입력하세요'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type='submit'>회원가입</button>
+        <button
+          className='ml-4 px-4 py-3 rounded-md bg-slate-300'
+          type='submit'
+        >
+          회원가입
+        </button>
       </form>
     </div>
   );
